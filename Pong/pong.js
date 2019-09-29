@@ -165,8 +165,12 @@ function keyDownHandler(event){
 
 function keyUpHandler(event){
     switch(event.key){
-        default:
-            player.direction=0;
+        case "ArrowUp":
+            player.direction = 0;
+            break;
+        case "ArrowDown":
+            player.direction = 0;
+            break;
             break;
     }
 }
