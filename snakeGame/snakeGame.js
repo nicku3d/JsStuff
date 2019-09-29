@@ -110,6 +110,9 @@ function keyDown(event){
         case "p":
             pauseGame();
             break;
+        case "Enter":
+
+            break;
     }
 }
 
