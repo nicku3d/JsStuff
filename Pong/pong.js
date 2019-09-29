@@ -14,7 +14,9 @@ const player = {
     x : 0,
     y : 0,
     direction : 0,
-    size : gridSize*4,
+    w : gridSize,
+    h : gridSize*4,
+    speed : 20,
 }
 
 const ball = {
@@ -52,10 +54,10 @@ window.onload = () => {
 function gameLoop(){
     //playerMovement
     if(player.direction == -1) {
-        player.y += 10;
+        player.y += player.speed;
     }
     else if (player.direction == 1){
-        player.y -=10;
+        player.y -= player.speed;
     }
     player.direction=0;
 
@@ -86,10 +88,17 @@ function gameLoop(){
     //end of ball collison check and movement
 
     //player - ball collision
-
+    if(ball.x == (player.x+player.w)
+        && ball.y > player.y
+        && ball.y < player.y+player.h){
+        ball.xv = 1;
+    }
     //end of player - ball collision
+    //debug
+    console.log("X " + player.x +" ==? "+ ball.x);
+    console.log("Y" + player.y +" "+ (player.y+player.h) +" ==? "+ ball.y);
+    //end of debug
 
-    console.log(player);
     drawBackground();
     drawPlayer();
     drawBall();
