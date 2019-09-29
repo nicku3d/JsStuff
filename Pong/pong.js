@@ -5,7 +5,7 @@
 let c;
 let ctx;
 let interval = undefined;
-let gameTimeout = 1000/30;
+let gameTimeout = 20;
 
 const gridSize = 20;
 
@@ -16,15 +16,15 @@ const player = {
     direction : 0,
     w : gridSize,
     h : gridSize*4,
-    speed : 20,
+    speed : 10,
 }
 
 const ball = {
     x : 0,
     y : 0,
-    xv : 0, //x velocity
+    xv : -1, //x velocity
     yv : 0, //y velocity
-    speed : 5,
+    speed : 1,
     size : gridSize,
 }
 
@@ -39,6 +39,9 @@ window.onload = () => {
     //init player position
     player.x = 50;
     player.y = c.height/2-(2*gridSize);
+
+    ball.x = c.width/2;
+    ball.y = c.height/2;
     //end of init player position
 
     //init ball position
@@ -47,7 +50,8 @@ window.onload = () => {
     //end of init ball position
     showText("Press Enter to start!");
 
-    document.addEventListener("keydown",keyDown);
+    document.addEventListener("keydown",keyDownHandler);
+    document.addEventListener("keyup", keyUpHandler);
 
 }
 
@@ -56,14 +60,13 @@ function gameLoop(){
     if(player.direction == -1) {
         player.y += player.speed;
     }
-    else if (player.direction == 1){
+    else if (player.direction == 1) {
         player.y -= player.speed;
     }
-    player.direction=0;
 
     //player collison check
-    if(player.y > c.height-4*gridSize){
-        player.y = c.height-4*gridSize;
+    if(player.y > c.height-player.h){
+        player.y = c.height-player.h;
     }
     else if ( player.y < 0 ){
         player.y = 0;
@@ -89,14 +92,15 @@ function gameLoop(){
 
     //player - ball collision
     if(ball.x == (player.x+player.w)
-        && ball.y > player.y
+        && ball.y > player.y-1
         && ball.y < player.y+player.h){
         ball.xv = 1;
     }
     //end of player - ball collision
     //debug
-    console.log("X " + player.x +" ==? "+ ball.x);
-    console.log("Y" + player.y +" "+ (player.y+player.h) +" ==? "+ ball.y);
+    //console.log("X " + player.x +" ==? "+ ball.x);
+    //console.log("Y" + player.y +" "+ (player.y+player.h) +" ==? "+ ball.y);
+    //console.log(ball);
     //end of debug
 
     drawBackground();
@@ -125,26 +129,25 @@ function moveBall(){
         ball.yv = 1;
     }
 
-    if(ball.xv == 1){
-        ball.x+=ball.speed;
-    }else if ( ball.xv == -1){
-        ball.x-=ball.speed;
+
+    //adjust speed
+    if(ball.xv == 1) {
+        ball.x += ball.speed;
+    }
+    if(ball.xv == -1){
+        ball.x -= ball.speed;
     }
 
     if(ball.yv == 1){
         ball.y += ball.speed;
     }
-    else if (ball.yv == -1){
+    if(ball.yv == -1){
         ball.y -= ball.speed;
     }
-
-
-
-
-
+    //end of adjusting speed
 }
 
-function keyDown(event){
+function keyDownHandler(event){
     switch(event.key){
         case "ArrowUp":
             player.direction = 1;
@@ -156,6 +159,14 @@ function keyDown(event){
             if(interval == undefined){
                 interval = setInterval(gameLoop, gameTimeout);
             }
+            break;
+    }
+}
+
+function keyUpHandler(event){
+    switch(event.key){
+        default:
+            player.direction=0;
             break;
     }
 }
