@@ -14,6 +14,7 @@ const player = {
     x : 0,
     y : 0,
     direction : 0,
+    size : gridSize*4,
 }
 
 const ball = {
@@ -21,6 +22,8 @@ const ball = {
     y : 0,
     xv : 0, //x velocity
     yv : 0, //y velocity
+    speed : 5,
+    size : gridSize,
 }
 
 
@@ -57,8 +60,8 @@ function gameLoop(){
     player.direction=0;
 
     //player collison check
-    if(player.y > c.height-3*gridSize){
-        player.y = c.height-3*gridSize;
+    if(player.y > c.height-4*gridSize){
+        player.y = c.height-4*gridSize;
     }
     else if ( player.y < 0 ){
         player.y = 0;
@@ -66,12 +69,69 @@ function gameLoop(){
     //end of player collision check
 
     //ball collision check and movement
-
+    // if(ball.x > c.width-gridSize*1.2){
+    //     ball.x = c.width-gridSize*1.2;
+    // }
+    // else if(ball.x < 0){
+    //     ball.x = 0;
+    // }
+    //
+    // if(ball.y > c.height - gridSize*1.2){
+    //     ball.y = c.height - gridSize*1.2;
+    // }
+    // else if (ball.y < 0){
+    //     ball.y = 0;
+    // }
+    moveBall();
     //end of ball collison check and movement
+
+    //player - ball collision
+
+    //end of player - ball collision
+
     console.log(player);
     drawBackground();
     drawPlayer();
     drawBall();
+
+}
+
+function moveBall(){
+    // if(ball.x <= c.width){
+    //     ball.x += 5;
+    // }
+    //
+    // if(ball.y <= c.height){
+    //     ball.y += 5;
+    // }
+    if(ball.x >= c.width - gridSize*1.2){
+        ball.xv = -1;
+    }else if ( ball.x <= 0){
+        ball.xv = 1;
+    }
+    if(ball.y >= c.height - gridSize*1.2){
+        ball.yv = -1;
+    }
+    else if(ball.y <= 0){
+        ball.yv = 1;
+    }
+
+    if(ball.xv == 1){
+        ball.x+=ball.speed;
+    }else if ( ball.xv == -1){
+        ball.x-=ball.speed;
+    }
+
+    if(ball.yv == 1){
+        ball.y += ball.speed;
+    }
+    else if (ball.yv == -1){
+        ball.y -= ball.speed;
+    }
+
+
+
+
 
 }
 
