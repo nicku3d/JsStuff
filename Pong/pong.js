@@ -75,29 +75,15 @@ function gameLoop() {
     }
     //end of player collision check
 
-    //ball collision check and movement
-    // if(ball.x > c.width-gridSize*1.2){
-    //     ball.x = c.width-gridSize*1.2;
-    // }
-    // else if(ball.x < 0){
-    //     ball.x = 0;
-    // }
-    //
-    // if(ball.y > c.height - gridSize*1.2){
-    //     ball.y = c.height - gridSize*1.2;
-    // }
-    // else if (ball.y < 0){
-    //     ball.y = 0;
-    // }
     moveBall();
     //end of ball collison check and movement
 
     //player - ball collision
-    // if (ball.x <= (player.x + player.w)
-    //     && ball.y > player.y - ball.size
-    //     && ball.y < player.y + player.h) {
-    //     ball.xv = 1;
-    // }
+    if (ball.x <= (player.x + player.w)
+        && ball.y > player.y - ball.size
+        && ball.y < player.y + player.h) {
+        ball.xv = -ball.xv;
+    }
     //end of player - ball collision
 
     //debug
@@ -114,10 +100,7 @@ function gameLoop() {
 
 function moveBall() {
 
-    //ballVx = BALLSPEED*Math.cos(bounceAngle);
-    // ballVy = BALLSPEED*-Math.sin(bounceAngle);
-
-
+    //ball collision with walls
     if(ball.x >= c.width - gridSize*1.2){
         ball.xv=-ball.xv;
     }
@@ -132,27 +115,9 @@ function moveBall() {
         ball.yv = -ball.yv;
     }
 
+    //ball position update
     ball.x+=ball.speed*ball.xv;
     ball.y+=ball.speed*ball.yv;
-
-
-    //
-    //
-    // //adjust speed
-    // if(ball.xv == 1) {
-    //     ball.x += ball.speed;
-    // }
-    // if(ball.xv == -1){
-    //     ball.x -= ball.speed;
-    // }
-    //
-    // if(ball.yv == 1){
-    //     ball.y += ball.speed;
-    // }
-    // if(ball.yv == -1){
-    //     ball.y -= ball.speed;
-    // }
-    //end of adjusting speed
 }
 
 function keyDownHandler(event) {
