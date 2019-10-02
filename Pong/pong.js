@@ -18,16 +18,13 @@ const paddle = {
     speed: 7,
 }
 
-let angle = Math.round(Math.random()*360);
-let bounceAngle = angle * Math.PI / 180;
-console.log(angle);
+
 
 const ball = {
     x: 0,
     y: 0,
-    xv: Math.cos(bounceAngle), //x velocity
-    yv: -Math.sin(bounceAngle), //y velocity
-    angle: 0,
+    xv: 0, //x velocity
+    yv: 0, //y velocity
     speed: 7,
     size: gridSize,
 }
@@ -45,14 +42,20 @@ window.onload = () => {
     paddle.x = 50;
     paddle.y = c.height / 2 - (2 * gridSize);
 
-    ball.x = c.width / 2;
-    ball.y = c.height / 2;
+
     //end of init paddle position
 
-    //init ball position
+    //init ball
+    ball.x = c.width / 2;
+    ball.y = c.height / 2;
+
+    let startingAngle = Math.round(Math.random()*360);
+    let bounceAngle = startingAngle * Math.PI / 180;
+    ball.xv = Math.cos(bounceAngle);
+    ball.yv = - Math.sin(bounceAngle);
 
 
-    //end of init ball position
+    //end of init ball
     showText("Press Enter to start!");
 
     document.addEventListener("keydown", keyDownHandler);
