@@ -30,6 +30,14 @@ const ball = {
 }
 
 
+function Paddle(x, y){
+    this.x = x;
+    this.y = y;
+    this.w = gridSize;
+    this.h = gridSize * 4;
+    this.speed = 7;
+}
+
 
 
 window.onload = () => {
@@ -42,6 +50,7 @@ window.onload = () => {
     paddle.x = 50;
     paddle.y = c.height / 2 - (2 * gridSize);
 
+    const paddle2 = new Paddle(c.width-50, c.height/2 - (2*gridSize));
 
     //end of init paddle position
 
