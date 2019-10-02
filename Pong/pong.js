@@ -9,7 +9,7 @@ let gameTimeout = 20;
 const gridSize = 20;
 
 
-const player = {
+const paddle = {
     x: 0,
     y: 0,
     direction: 0,
@@ -17,6 +17,7 @@ const player = {
     h: gridSize * 4,
     speed: 7,
 }
+
 let angle = Math.round(Math.random()*360);
 let bounceAngle = angle * Math.PI / 180;
 console.log(angle);
@@ -40,13 +41,13 @@ window.onload = () => {
     drawBackground();
     //doCoolStuff();
     ctx.fillStyle = "white";
-    //init player position
-    player.x = 50;
-    player.y = c.height / 2 - (2 * gridSize);
+    //init paddle position
+    paddle.x = 50;
+    paddle.y = c.height / 2 - (2 * gridSize);
 
     ball.x = c.width / 2;
     ball.y = c.height / 2;
-    //end of init player position
+    //end of init paddle position
 
     //init ball position
 
@@ -60,40 +61,40 @@ window.onload = () => {
 }
 
 function gameLoop() {
-    //playerMovement
-    if (player.direction == -1) {
-        player.y += player.speed;
-    } else if (player.direction == 1) {
-        player.y -= player.speed;
+    //paddleMovement
+    if (paddle.direction == -1) {
+        paddle.y += paddle.speed;
+    } else if (paddle.direction == 1) {
+        paddle.y -= paddle.speed;
     }
 
-    //player collison check
-    if (player.y > c.height - player.h) {
-        player.y = c.height - player.h;
-    } else if (player.y < 0) {
-        player.y = 0;
+    //paddle collison check
+    if (paddle.y > c.height - paddle.h) {
+        paddle.y = c.height - paddle.h;
+    } else if (paddle.y < 0) {
+        paddle.y = 0;
     }
-    //end of player collision check
+    //end of paddle collision check
 
     moveBall();
     //end of ball collison check and movement
 
-    //player - ball collision
-    if (ball.x <= (player.x + player.w)
-        && ball.y > player.y - ball.size
-        && ball.y < player.y + player.h) {
+    //paddle - ball collision
+    if (ball.x <= (paddle.x + paddle.w)
+        && ball.y > paddle.y - ball.size
+        && ball.y < paddle.y + paddle.h) {
         ball.xv = -ball.xv;
     }
-    //end of player - ball collision
+    //end of paddle - ball collision
 
     //debug
-    //console.log("X " + player.x +" ==? "+ ball.x);
-    //console.log("Y" + player.y +" "+ (player.y+player.h) +" ==? "+ ball.y);
+    //console.log("X " + paddle.x +" ==? "+ ball.x);
+    //console.log("Y" + paddle.y +" "+ (paddle.y+paddle.h) +" ==? "+ ball.y);
     //console.log(ball);
     //end of debug
 
     drawBackground();
-    drawPlayer();
+    drawpaddle();
     drawBall();
 
 }
@@ -123,10 +124,10 @@ function moveBall() {
 function keyDownHandler(event) {
     switch (event.key) {
         case "ArrowUp":
-            player.direction = 1;
+            paddle.direction = 1;
             break;
         case "ArrowDown":
-            player.direction = -1;
+            paddle.direction = -1;
             break;
         case "Enter":
             if (interval == undefined) {
@@ -139,10 +140,10 @@ function keyDownHandler(event) {
 function keyUpHandler(event) {
     switch (event.key) {
         case "ArrowUp":
-            player.direction = 0;
+            paddle.direction = 0;
             break;
         case "ArrowDown":
-            player.direction = 0;
+            paddle.direction = 0;
             break;
             break;
     }
@@ -153,9 +154,9 @@ function drawBall() {
     ctx.fillRect(ball.x, ball.y, gridSize, gridSize);
 }
 
-function drawPlayer() {
+function drawpaddle() {
     ctx.fillStyle = "white";
-    ctx.fillRect(player.x, player.y, gridSize, 4 * gridSize);
+    ctx.fillRect(paddle.x, paddle.y, gridSize, 4 * gridSize);
 }
 
 function doCoolStuff() {
