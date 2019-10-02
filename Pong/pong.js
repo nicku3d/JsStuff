@@ -91,6 +91,12 @@ function gameLoop() {
     } else if (paddle.y < 0) {
         paddle.y = 0;
     }
+
+    if (enemyPaddle.y > c.height - enemyPaddle.h) {
+        enemyPaddle.y = c.height - enemyPaddle.h;
+    } else if (enemyPaddle.y < 0) {
+        enemyPaddle.y = 0;
+    }
     //end of paddle collision check
 
     moveBall();
@@ -104,7 +110,7 @@ function gameLoop() {
     }
 
     //enemyPaddle
-    if (ball.x >= (enemyPaddle.x)
+    if (ball.x >= (enemyPaddle.x-enemyPaddle.w)
         && ball.y > enemyPaddle.y - ball.size
         && ball.y < enemyPaddle.y + enemyPaddle.h) {
         ball.xv = -ball.xv;
@@ -127,9 +133,9 @@ function gameLoop() {
 }
 
 function updatePaddle(paddle){
-    if(paddle.y > ball.y) {
-        paddle.y -= paddle.speed / 2;
-    } else paddle.y += paddle.speed /2;
+    if((paddle.y + paddle.h/2) > ball.y) {
+        paddle.y -= Math.round(paddle.speed / 2);
+    } else paddle.y += Math.round(paddle.speed /2);
 }
 
 function moveBall() {
