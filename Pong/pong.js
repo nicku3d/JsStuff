@@ -5,18 +5,22 @@ let c;
 let ctx;
 let interval = undefined;
 let gameTimeout = 20;
+let paddle;
+let paddle2;
+
 
 const gridSize = 20;
 
 
-const paddle = {
-    x: 0,
-    y: 0,
-    direction: 0,
-    w: gridSize,
-    h: gridSize * 4,
-    speed: 7,
-}
+
+// const paddle = {
+//     x: 0,
+//     y: 0,
+//     direction: 0,
+//     w: gridSize,
+//     h: gridSize * 4,
+//     speed: 7,
+// }
 
 
 
@@ -33,9 +37,14 @@ const ball = {
 function Paddle(x, y){
     this.x = x;
     this.y = y;
+    this.direction = 0;
     this.w = gridSize;
     this.h = gridSize * 4;
     this.speed = 7;
+    this.Draw = () => {
+        ctx.fillStyle = "white";
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
 }
 
 
@@ -46,11 +55,9 @@ window.onload = () => {
     drawBackground();
     //doCoolStuff();
     ctx.fillStyle = "white";
-    //init paddle position
-    paddle.x = 50;
-    paddle.y = c.height / 2 - (2 * gridSize);
-
-    const paddle2 = new Paddle(c.width-50, c.height/2 - (2*gridSize));
+    //init paddles position
+    paddle = new Paddle(50, c.height / 2 - (2 * gridSize));
+    paddle2 = new Paddle(c.width-50, c.height/2 - (2*gridSize));
 
     //end of init paddle position
 
@@ -106,7 +113,8 @@ function gameLoop() {
     //end of debug
 
     drawBackground();
-    drawpaddle();
+    paddle.Draw();
+    paddle2.Draw();
     drawBall();
 
 }
@@ -164,11 +172,6 @@ function keyUpHandler(event) {
 function drawBall() {
     ctx.fillStyle = "white";
     ctx.fillRect(ball.x, ball.y, gridSize, gridSize);
-}
-
-function drawpaddle() {
-    ctx.fillStyle = "white";
-    ctx.fillRect(paddle.x, paddle.y, gridSize, 4 * gridSize);
 }
 
 function doCoolStuff() {
