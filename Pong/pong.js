@@ -102,6 +102,14 @@ function gameLoop() {
         && ball.y < paddle.y + paddle.h) {
         ball.xv = -ball.xv;
     }
+
+    //enemyPaddle
+    if (ball.x >= (enemyPaddle.x)
+        && ball.y > enemyPaddle.y - ball.size
+        && ball.y < enemyPaddle.y + enemyPaddle.h) {
+        ball.xv = -ball.xv;
+    }
+
     updatePaddle(enemyPaddle);
     //end of paddle - ball collision
 
