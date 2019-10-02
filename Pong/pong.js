@@ -6,7 +6,7 @@ let ctx;
 let interval = undefined;
 let gameTimeout = 20;
 let paddle;
-let paddle2;
+let enemyPaddle;
 
 
 const gridSize = 20;
@@ -54,12 +54,10 @@ window.onload = () => {
     ctx = c.getContext("2d");
     drawBackground();
     //doCoolStuff();
-    ctx.fillStyle = "white";
-    //init paddles position
+    //ctx.fillStyle = "white";
+    //init paddles
     paddle = new Paddle(50, c.height / 2 - (2 * gridSize));
-    paddle2 = new Paddle(c.width-50, c.height/2 - (2*gridSize));
-
-    //end of init paddle position
+    enemyPaddle = new Paddle(c.width-50, c.height/2 - (2*gridSize));
 
     //init ball
     ball.x = c.width / 2;
@@ -104,6 +102,7 @@ function gameLoop() {
         && ball.y < paddle.y + paddle.h) {
         ball.xv = -ball.xv;
     }
+    updatePaddle(enemyPaddle);
     //end of paddle - ball collision
 
     //debug
@@ -114,9 +113,15 @@ function gameLoop() {
 
     drawBackground();
     paddle.Draw();
-    paddle2.Draw();
+    enemyPaddle.Draw();
     drawBall();
 
+}
+
+function updatePaddle(paddle){
+    if(paddle.y > ball.y) {
+        paddle.y -= paddle.speed / 2;
+    } else paddle.y += paddle.speed /2;
 }
 
 function moveBall() {
