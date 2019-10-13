@@ -145,10 +145,10 @@ function drawSnake(color="grey"){
         ctx.fillRect(player.trail[i].x * gameWindow.gridSize, player.trail[i].y * gameWindow.gridSize,
             gameWindow.gridSize - 2,
             gameWindow.gridSize - 2);
-        if(player.x === player.trail[i].x && player.y === player.trail[i].y){/* ma 4 bo na zakrecie sie wydluza jebany, nie do zabicia jest teraz */
-            if(playerPlaying) {
-                saveScore();
-            }
+        if(player.x === player.trail[i].x && player.y === player.trail[i].y){
+            // if(playerPlaying) {
+            //     saveScore();
+            // }
             player.tail = 3;
             player.x = 10;
             player.y = 10;
