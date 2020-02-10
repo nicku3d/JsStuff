@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 100px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+.dropdown {
+  position: relative;
+  background: #EA1744;
+  border-radius: 5px;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+.dropdown > .title {
+  z-index: 2;
+  position: relative;
+  cursor: pointer;
+  color: #FFF;
+}
+
+.games-menu {
+  display: none;
+}
+
+.dropdown:hover .games-menu {
+  display: flex;
+  flex-direction: column;
+  background: #EA1744;
+  border-radius: 5px;
+  padding-top: 20px;
+  width: 100%;
+
+  position: absolute;
+  left: 0px;
+  top: 13px;
+  z-index: 1;
+}
+
+.games-menu li {
+  list-style: none;
+  border-top: 1px solid #FFF;
+  padding: 5px;
+  text-align: center;
+
+}
+
+.games-menu li:last-of-type {
+  border-bottom: none;
+}
+
+.games-menu a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.games-menu a:hover {
+  text-decoration: underline;
+}
